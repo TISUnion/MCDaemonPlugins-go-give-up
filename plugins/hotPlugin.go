@@ -1,7 +1,3 @@
-/**
- *热插件运行
- */
-
 package plugin
 
 import (
