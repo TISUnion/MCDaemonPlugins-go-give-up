@@ -23,14 +23,16 @@ func (bp BackupPlugin) Handle(c *command.Command, s lib.Server) {
 		s.Execute("/save-all flush")
 	case "saved":
 		Copy(serverfile, "back-up/"+bp.backupName)
-	case "save-compress":
-		Copy(serverfile, "back-up/"+bp.backupName)
+		s.Tell(c.Player, "备份完成")
+	case "compress":
 		if runtime.GOOS == "windows" {
 			s.Tell(c.Player, "windows服务器不支持压缩功能")
 		} else {
 			cmd := exec.Command("tar", "zcvf", "back-up/"+bp.backupName+".tar.gz", "back-up/"+bp.backupName)
 			if err := cmd.Run(); err != nil {
 				s.Tell(c.Player, fmt.Sprint("压缩姬出问题了，因为", err))
+			} else {
+				s.Tell(c.Player, "备份完成")
 			}
 		}
 	}
