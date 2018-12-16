@@ -18,3 +18,4 @@ plugins/TestPlugin.go
 parsers/parserList.go
 plugins/PluginMap.go
 plugins/pluginList.go
+plugins/hotPlugin.go
