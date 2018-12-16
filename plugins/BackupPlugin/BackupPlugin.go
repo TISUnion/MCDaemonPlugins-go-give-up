@@ -43,5 +43,8 @@ func (bp *BackupPlugin) Handle(c *command.Command, s lib.Server) {
 				s.Tell("备份完成", c.Player)
 			}
 		}
+	default:
+		text := "使用规则：\\n!!backup save [存档名称]\\nlinux下可使用!!backup compress对最近一次save的存档进行压缩"
+		s.Tell(text, c.Player)
 	}
 }
