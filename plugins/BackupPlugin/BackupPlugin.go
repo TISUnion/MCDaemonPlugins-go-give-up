@@ -13,26 +13,34 @@ type BackupPlugin struct {
 	backupName string
 }
 
-func (bp BackupPlugin) Handle(c *command.Command, s lib.Server) {
-	server_name := config.Cfg.Section("MCDeamon").Key("server_name").String()
+func (bp *BackupPlugin) Handle(c *command.Command, s lib.Server) {
 	server_path := config.Cfg.Section("MCDeamon").Key("server_path").String()
-	serverfile := fmt.Sprintf("%s/%s", server_path, server_name)
+	if len(c.Argv) == 0 {
+		c.Argv = append(c.Argv, "help")
+	}
 	switch c.Argv[0] {
 	case "save":
+		if len(c.Argv) < 2 {
+			s.Tell(c.Player, "请输入备份存档名称！")
+		}
 		bp.backupName = c.Argv[1]
+		fmt.Println(bp)
 		s.Execute("/save-all flush")
 	case "saved":
-		Copy(serverfile, "back-up/"+bp.backupName)
-		s.Tell(c.Player, "备份完成")
+		if err := Copy(server_path, "back-up/"+bp.backupName); err != nil {
+			fmt.Println(err)
+		}
+		fmt.Println(bp)
+		s.Say("备份完成")
 	case "compress":
 		if runtime.GOOS == "windows" {
-			s.Tell(c.Player, "windows服务器不支持压缩功能")
+			s.Tell("windows服务器不支持压缩功能", c.Player)
 		} else {
 			cmd := exec.Command("tar", "zcvf", "back-up/"+bp.backupName+".tar.gz", "back-up/"+bp.backupName)
 			if err := cmd.Run(); err != nil {
-				s.Tell(c.Player, fmt.Sprint("压缩姬出问题了，因为", err))
+				s.Tell(fmt.Sprint("压缩姬出问题了，因为", err), c.Player)
 			} else {
-				s.Tell(c.Player, "备份完成")
+				s.Tell("备份完成", c.Player)
 			}
 		}
 	}
