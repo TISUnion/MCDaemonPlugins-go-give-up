@@ -24,13 +24,11 @@ func (bp *BackupPlugin) Handle(c *command.Command, s lib.Server) {
 			s.Tell(c.Player, "请输入备份存档名称！")
 		}
 		bp.backupName = c.Argv[1]
-		fmt.Println(bp)
 		s.Execute("/save-all flush")
 	case "saved":
 		if err := Copy(server_path, "back-up/"+bp.backupName); err != nil {
 			fmt.Println(err)
 		}
-		fmt.Println(bp)
 		s.Say("备份完成")
 	case "compress":
 		if runtime.GOOS == "windows" {
