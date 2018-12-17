@@ -2,6 +2,7 @@ package plugin
 
 import (
 	"MCDaemon-go/command"
+	"MCDaemon-go/config"
 	"MCDaemon-go/lib"
 	"encoding/json"
 	"fmt"
@@ -90,7 +91,7 @@ func chat(data string, player string) string {
 			},
 		},
 		"userInfo": map[string]interface{}{
-			"apiKey":     "b0891402dce941e48394a6090e304b51",
+			"apiKey":     config.GetPluginCfg(false).Section("SDChat").Key("appid").String(),
 			"userId":     player,
 			"groupId":    10,
 			"userIdName": player,
