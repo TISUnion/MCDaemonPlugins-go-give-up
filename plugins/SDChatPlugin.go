@@ -35,9 +35,9 @@ func (hp *SDChatPlugin) Handle(c *command.Command, s lib.Server) {
 		command.Group.DelPlayer("SDChat-all", c.Player)
 		s.Tell("退出聊天模式成功", c.Player)
 	case "say":
-		s.Tell(chat(c.Argv[1], c.Player), c.Player)
+		s.Tell("沙雕："+chat(c.Argv[1], c.Player), c.Player)
 	case "say-all":
-		s.Say(chat(c.Argv[1], c.Player))
+		s.Say("沙雕对：" + c.Player + "说" + chat(c.Argv[1], c.Player))
 	default:
 		s.Tell(text, c.Player)
 	}
