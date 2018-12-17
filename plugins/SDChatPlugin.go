@@ -6,6 +6,7 @@ import (
 	"MCDaemon-go/lib"
 	"encoding/json"
 	"fmt"
+	"hash/crc32"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -28,7 +29,7 @@ func (hp *SDChatPlugin) Handle(c *command.Command, s lib.Server) {
 		s.Tell("开启全局聊天模式成功", c.Player)
 	case "start":
 		command.Group.AddPlayer("SDChat", c.Player)
-		s.Tell("开启全局聊天模式成功", c.Player)
+		s.Tell("开启聊天模式成功", c.Player)
 	case "stop":
 		command.Group.DelPlayer("SDChat", c.Player)
 		command.Group.DelPlayer("SDChat-all", c.Player)
@@ -82,6 +83,18 @@ func httpPost(data string) string {
 	return string(body)
 }
 
+func stringToInt(s string) int {
+	v := int(crc32.ChecksumIEEE([]byte(s)))
+	if v >= 0 {
+		return v
+	}
+	if -v >= 0 {
+		return -v
+	}
+	// v == MinInt
+	return 0
+}
+
 //发出请求获取聊天回复
 func chat(data string, player string) string {
 	_requestMap := map[string]interface{}{
@@ -92,7 +105,7 @@ func chat(data string, player string) string {
 		},
 		"userInfo": map[string]interface{}{
 			"apiKey":     config.GetPluginCfg(false).Section("SDChat").Key("appid").String(),
-			"userId":     player,
+			"userId":     stringToInt(player),
 			"groupId":    10,
 			"userIdName": player,
 		},
