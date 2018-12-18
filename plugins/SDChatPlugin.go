@@ -18,10 +18,8 @@ import (
 type SDChatPlugin struct{}
 
 func (hp *SDChatPlugin) Handle(c *command.Command, s lib.Server) {
-	text := "!!SDChat all start 开启全局聊天模式\\n!!SDChat start 开启私聊模式（别的玩家看不见沙雕机器人给你发的信息）\\n!!SDChat stop 关闭聊天模式"
 	if len(c.Argv) < 1 {
-		s.Tell(text, c.Player)
-		return
+		c.Argv = append(c.Argv, "help")
 	}
 	switch c.Argv[0] {
 	case "all":
@@ -39,6 +37,7 @@ func (hp *SDChatPlugin) Handle(c *command.Command, s lib.Server) {
 	case "say-all":
 		s.Say("沙雕对：" + c.Player + "说" + chat(c.Argv[1], c.Player))
 	default:
+		text := "!!SDChat all start 开启全局聊天模式\\n!!SDChat start 开启私聊模式（别的玩家看不见沙雕机器人给你发的信息）\\n!!SDChat stop 关闭聊天模式"
 		s.Tell(text, c.Player)
 	}
 }
