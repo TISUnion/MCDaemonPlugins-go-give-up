@@ -20,3 +20,4 @@ plugins/PluginMap.go
 plugins/pluginList.go
 plugins/hotPlugin.go
 plugins/BasePlugin.go
+go.sum
