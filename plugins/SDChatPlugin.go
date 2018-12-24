@@ -24,21 +24,21 @@ func (hp *SDChatPlugin) Handle(c *command.Command, s lib.Server) {
 	switch c.Argv[0] {
 	case "all":
 		command.Group.AddPlayer("SDChat-all", c.Player)
-		s.Tell("开启全局聊天模式成功", c.Player)
+		s.Tell(c.Player, "开启全局聊天模式成功")
 	case "start":
 		command.Group.AddPlayer("SDChat", c.Player)
-		s.Tell("开启聊天模式成功", c.Player)
+		s.Tell(c.Player, "开启聊天模式成功")
 	case "stop":
 		command.Group.DelPlayer("SDChat", c.Player)
 		command.Group.DelPlayer("SDChat-all", c.Player)
-		s.Tell("退出聊天模式成功", c.Player)
+		s.Tell(c.Player, "退出聊天模式成功")
 	case "say":
-		s.Tell("沙雕："+chat(c.Argv[1], c.Player), c.Player)
+		s.Tell(c.Player, "沙雕："+chat(c.Argv[1], c.Player))
 	case "say-all":
 		s.Say("沙雕对：" + c.Player + "说" + chat(c.Argv[1], c.Player))
 	default:
 		text := "!!SDChat all start 开启全局聊天模式\\n!!SDChat start 开启私聊模式（别的玩家看不见沙雕机器人给你发的信息）\\n!!SDChat stop 关闭聊天模式"
-		s.Tell(text, c.Player)
+		s.Tell(c.Player, text)
 	}
 }
 
