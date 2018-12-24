@@ -22,7 +22,7 @@ func (hp *TpsPlugin) Handle(c *command.Command, s lib.Server) {
 		s.Execute("debug stop")
 	} else {
 		text := "使用 !!tps [秒数] 指定获取多少秒内的tps"
-		s.Tell(text, c.Player)
+		s.Tell(c.Player, text)
 	}
 }
 
