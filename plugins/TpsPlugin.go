@@ -25,3 +25,6 @@ func (hp *TpsPlugin) Handle(c *command.Command, s lib.Server) {
 		s.Tell(text, c.Player)
 	}
 }
+
+func (hp *TpsPlugin) Init(s lib.Server) {
+}

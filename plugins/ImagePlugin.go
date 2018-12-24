@@ -57,3 +57,6 @@ func (lp *ImagePlugin) Handle(c *command.Command, s lib.Server) {
 		s.Tell(c.Player, text)
 	}
 }
+
+func (lp *ImagePlugin) Init(s lib.Server) {
+}

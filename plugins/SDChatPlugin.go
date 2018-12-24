@@ -42,6 +42,9 @@ func (hp *SDChatPlugin) Handle(c *command.Command, s lib.Server) {
 	}
 }
 
+func (hp *SDChatPlugin) Init(s lib.Server) {
+}
+
 //封装JSON
 func LightEncode(elememt interface{}) string {
 	//拼接的结果字符串
