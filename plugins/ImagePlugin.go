@@ -52,5 +52,8 @@ func (lp *ImagePlugin) Handle(c *command.Command, s lib.Server) {
 		}
 		cor = container.GetInstance()
 		cor.Del(c.Argv[1])
+	default:
+		text := "!!image show 查看镜像\\n!!image start [镜像名称] 开启镜像 \\n!!image stop [镜像名称] 关闭镜像"
+		s.Tell(c.Player, text)
 	}
 }
