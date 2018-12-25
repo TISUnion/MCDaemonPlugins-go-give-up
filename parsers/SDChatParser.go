@@ -9,7 +9,7 @@ type SDChatParser struct {
 	startChatPlayer map[string]bool
 }
 
-func (sp SDChatParser) Parsing(word string) (*command.Command, bool) {
+func (sp *SDChatParser) Parsing(word string) (*command.Command, bool) {
 	if sp.startChatPlayer == nil {
 		sp.startChatPlayer = make(map[string]bool)
 	}
