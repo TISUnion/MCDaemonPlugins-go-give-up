@@ -48,20 +48,24 @@ func (lp *ImagePlugin) Handle(c *command.Command, s lib.Server) {
 		if len(c.Argv) == 1 {
 			s.Tell(c.Player, "缺少启动的镜像名称")
 		}
-		path := "back-up/" + c.Argv[1] + "/server.properties"
-		if _, err := os.Stat(path); err != nil {
-			s.Tell(c.Player, "镜像不存在")
+		//镜像已启动则不启动镜像
+		if cor.IsRuntime(c.Argv[1]) {
+			s.Tell(c.Player, "该镜像已经启动")
 		} else {
-			cor = container.GetInstance()
-			svr := s.Clone()
-			//修改端口
-			sercfg, _ := ini.Load(path)
-			sercfg.Section("").NewKey("server-port", svr.GetPort())
-			sercfg.SaveTo(path)
-			//启动
-			cor.Add(c.Argv[1], "back-up/"+c.Argv[1], svr)
+			path := "back-up/" + c.Argv[1] + "/server.properties"
+			if _, err := os.Stat(path); err != nil {
+				s.Tell(c.Player, "镜像不存在")
+			} else {
+				cor = container.GetInstance()
+				svr := s.Clone()
+				//修改端口
+				sercfg, _ := ini.Load(path)
+				sercfg.Section("").NewKey("server-port", svr.GetPort())
+				sercfg.SaveTo(path)
+				//启动
+				cor.Add(c.Argv[1], "back-up/"+c.Argv[1], svr)
+			}
 		}
-
 	case "stop":
 		if len(c.Argv) == 1 {
 			s.Tell(c.Player, "缺少停止的镜像名称")
