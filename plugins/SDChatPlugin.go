@@ -36,6 +36,9 @@ func (hp *SDChatPlugin) Handle(c *command.Command, s lib.Server) {
 		s.Tell(c.Player, "沙雕："+chat(c.Argv[1], c.Player))
 	case "say-all":
 		s.Say("沙雕对：" + c.Player + "说" + chat(c.Argv[1], c.Player))
+	case "reload":
+		_ = config.GetPluginCfg(true)
+		s.Tell(c.Player, "已重新读取配置文件")
 	default:
 		text := "!!SDChat all start 开启全局聊天模式\\n!!SDChat start 开启私聊模式（别的玩家看不见沙雕机器人给你发的信息）\\n!!SDChat stop 关闭聊天模式"
 		s.Tell(c.Player, text)
