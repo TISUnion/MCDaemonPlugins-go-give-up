@@ -84,3 +84,6 @@ func (lp *ImagePlugin) Handle(c *command.Command, s lib.Server) {
 
 func (lp *ImagePlugin) Init(s lib.Server) {
 }
+
+func (hp *ImagePlugin) Close() {
+}

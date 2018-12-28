@@ -28,3 +28,6 @@ func (hp *TpsPlugin) Handle(c *command.Command, s lib.Server) {
 
 func (hp *TpsPlugin) Init(s lib.Server) {
 }
+
+func (hp *TpsPlugin) Close() {
+}
