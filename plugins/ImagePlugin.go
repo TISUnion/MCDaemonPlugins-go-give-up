@@ -37,7 +37,7 @@ func (lp *ImagePlugin) Handle(c *command.Command, s lib.Server) {
 			}
 			backupfiles[k] = strings.Split(backupfiles[k], split)[1]
 			if cor.IsRuntime(backupfiles[k]) {
-				backupfiles[k] += "   已启动"
+				backupfiles[k] += "   已启动" + "   端口：" + cor.Servers[backupfiles[k]].GetPort()
 			} else {
 				backupfiles[k] += "   未启动"
 			}
