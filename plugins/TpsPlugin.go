@@ -20,6 +20,8 @@ func (hp *TpsPlugin) Handle(c *command.Command, s lib.Server) {
 		s.Execute("debug start")
 		time.Sleep(time.Second * time.Duration(second))
 		s.Execute("debug stop")
+	} else if c.Argv[0] == "res" {
+		s.Say(c.Argv[1][:len(c.Argv[1])-1])
 	} else {
 		text := "使用 !!tps [秒数] 指定获取多少秒内的tps"
 		s.Tell(c.Player, text)
