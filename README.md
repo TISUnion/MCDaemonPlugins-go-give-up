@@ -1,7 +1,7 @@
 # MCDaemonPlugins-go
 MCDaemon的插件收录(已废弃)
 
-## 所有插件已直接合并进[主分支](https://github.com/TISUnion/MCDaemon-go/releases)
+## 所有插件已直接合并进[主分支](https://github.com/TISUnion/MCDaemon-go)
 
 > 插件列表
 
